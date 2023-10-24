@@ -6,6 +6,23 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Recipe {
+  id            Int           @id @default(autoincrement())
+  title         String        @db.VarChar(255)
+  description   String        @db.Text
+  dietaryOption DietaryOption @default(NONE)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum DietaryOption {
+  NONE
+  VEGETARIAN
+  VEGAN
+  GLUTEN_FREE
+  DAIRY_FREE
 }
